@@ -25,17 +25,19 @@ public class controller {
 
     @RequestMapping("/owners") // get route to /owners
     public List<Owner> getAllOwners (){ // creates list object containing Owner objects
-        String query = "SELECT * FROM owners;";
+        String query = "SELECT owners.id, owners.owner_name, count(pets.owner_id) AS pet_count FROM owners LEFT JOIN pets ON pets.owner_id = owners.id GROUP BY owners.id ORDER BY owners.id DESC;";
         List<Owner> owners = jdbcTemplate.query(query, new OwnerRowMapper());
         //OwnerRowMapper is our handler that parses out the response from the database, creating an Owner object for each of them
         //it then assigns this list of Owners into the List<Owner> owners, and returns it
         return owners;
     }
 
-    @RequestMapping("/pets")
-    public List<Pet> getAllPets (){
-        String query = "SELECT * FROM pets;";
+    @RequestMapping("/pets") // get route to /pets
+    public List<Pet> getAllPets () {
+        String query = "SELECT pets.id, pets.pet_name, pets.breed, pets.color, pets.url, pets.is_checked_in, pets.checked_in_date, pets.owner_id, owners.owner_name FROM pets JOIN owners ON pets.owner_id = owners.id ORDER BY owners.owner_name;";
         List<Pet> pets = jdbcTemplate.query(query, new PetRowMapper());
+        //PetRowMapper is the same as the ownerRowMapper above, that handles the response
+        //from the database, sets it into a list of Pet objects, and returns it
         return pets;
     }
 }

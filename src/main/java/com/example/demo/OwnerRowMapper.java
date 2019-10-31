@@ -1,4 +1,3 @@
-  
 package com.example.demo;
 
 import com.example.demo.Owner;
@@ -13,8 +12,8 @@ public class OwnerRowMapper implements RowMapper<Owner> {
         //Owner object, sets the properties of the owner object below, then returns it
         Owner owner = new Owner();
         owner.setId(res.getInt("id"));
-        owner.setOwnerName(res.getString("name"));
-        // owner.setPetCount(res.getInt("pet_count"));
+        owner.setOwnerName(res.getString("owner_name"));
+        owner.setPetCount(res.getInt("pet_count"));
         return owner;
     }
 }

@@ -15,10 +15,10 @@ public class Owner {
     public String getOwnerName() {
         return this.owner_name;
     }
-    // //pet count getter
-    // public int getPetCount(){
-    //     return this.pet_count;
-    // }
+    //pet count getter
+    public int getPetCount(){
+        return this.pet_count;
+    }
 
     // setters should be used instead of directly accessing class properties
     //this way the class will modify its own props
@@ -32,9 +32,9 @@ public class Owner {
         this.owner_name = owner_name;
     }
 
-    // public void setPetCount(int pet_count){
-    //     this.pet_count = pet_count;
-    // }
+    public void setPetCount(int pet_count){
+        this.pet_count = pet_count;
+    }
 
     //creating an Owner object -- if passed nothing, returns object Owner with no props
     public Owner (){}
