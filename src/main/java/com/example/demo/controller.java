@@ -52,3 +52,16 @@ public class controller {
         }
     };
 }
+    @DeleteMapping("/pets/{id}")
+        public void deletePet(@PathVariable int id) { //@Pathvariable int id accesses the
+            //id param above and sets it into the variable "id" with type of int
+            String query = "DELETE FROM pets WHERE id = ?;";
+            try {
+                jdbcTemplate.update(query, id);
+            } catch (Exception e) {
+                System.err.println(e);
+                throw e;
+            }
+        }
+}
+
