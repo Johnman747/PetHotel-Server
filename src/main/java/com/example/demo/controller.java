@@ -41,6 +41,29 @@ public class controller {
         return pets;
     }
 
+    @PostMapping("/pets") // post route tp /pets
+    public void addPet(@RequestBody Pet newPet) {
+        String query = "INSERT INTO pets (owner_id, pet_name, breed, color, is_checked_in) VALUES (?, ?, ?, ?, ?);";
+        try {
+            jdbcTemplate.update(query, newPet.getOwnerId(), newPet.getPetName(), newPet.getBreed(), newPet.getColor(), newPet.getCheckedInStatus());
+            // jdbcpTemplate will pass params into ?s to santize query
+        } catch (Exception error) {
+            System.err.println(error);
+            throw error; // throws error if unmet
+        }
+    }
+
+    @PostMapping("/owners") // post route to /owners for new owner, works same as pet route above
+    public void addOwner(@RequestBody Owner newOwner){
+        String query = "INSERT INTO owners (owner_name) VALUES (?)";
+        try {
+            jdbcTemplate.update(query, newOwner.getOwnerName());
+        } catch (Exception e){
+            System.err.println(e);
+            throw e;
+        }
+    }
+
     @PatchMapping("/pets/checked/{id}") //patch route for pet checking in/out
     public void checkInPet(@PathVariable int id) {
         String query = "UPDATE pets SET is_checked_in = NOT is_checked_in, checked_in_date = now() WHERE id = ?";
@@ -51,7 +74,7 @@ public class controller {
             throw error;
         }
     };
-}
+
     @DeleteMapping("/pets/{id}")
         public void deletePet(@PathVariable int id) { //@Pathvariable int id accesses the
             //id param above and sets it into the variable "id" with type of int

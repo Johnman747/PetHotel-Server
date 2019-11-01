@@ -13,7 +13,7 @@ public class OwnerRowMapper implements RowMapper<Owner> {
         Owner owner = new Owner();
         owner.setId(res.getInt("id"));
         owner.setOwnerName(res.getString("owner_name"));
-        owner.setPetCount(res.getInt("pet_count"));
+        // owner.setPetCount(res.getInt("pet_count"));
         return owner;
     }
 }
