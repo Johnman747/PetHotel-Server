@@ -20,7 +20,7 @@ public class controller {
 
     @RequestMapping("/") // get route to '/', just used to confirm connection to server
     public String index(){
-        return "Spring Boot is ready!";
+        return "Spring Boot is ready! Welcome to Java Hell!";
     }
 
     @RequestMapping("/owners") // get route to /owners
@@ -63,4 +63,28 @@ public class controller {
             throw e;
         }
     }
+
+    @PatchMapping("/pets/checked/{id}") //patch route for pet checking in/out
+    public void checkInPet(@PathVariable int id) {
+        String query = "UPDATE pets SET is_checked_in = NOT is_checked_in, checked_in_date = now() WHERE id = ?";
+        //query text toggles checkin status and sets new checkin date to now()
+        try {
+            jdbcTemplate.update(query, id);
+        } catch (Exception error) {
+            throw error;
+        }
+    };
+
+    @DeleteMapping("/pets/{id}")
+        public void deletePet(@PathVariable int id) { //@Pathvariable int id accesses the
+            //id param above and sets it into the variable "id" with type of int
+            String query = "DELETE FROM pets WHERE id = ?;";
+            try {
+                jdbcTemplate.update(query, id);
+            } catch (Exception e) {
+                System.err.println(e);
+                throw e;
+            }
+        }
 }
+
