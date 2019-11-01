@@ -40,4 +40,27 @@ public class controller {
         //from the database, sets it into a list of Pet objects, and returns it
         return pets;
     }
+
+    @PostMapping("/pets") // post route tp /pets
+    public void addPet(@RequestBody Pet newPet) {
+        String query = "INSERT INTO pets (owner_id, pet_name, breed, color, is_checked_in) VALUES (?, ?, ?, ?, ?);";
+        try {
+            jdbcTemplate.update(query, newPet.getOwnerId(), newPet.getPetName(), newPet.getBreed(), newPet.getColor(), newPet.getCheckedInStatus());
+            // jdbcpTemplate will pass params into ?s to santize query
+        } catch (Exception error) {
+            System.err.println(error);
+            throw error; // throws error if unmet
+        }
+    }
+
+    @PostMapping("/owners") // post route to /owners for new owner, works same as pet route above
+    public void addOwner(@RequestBody Owner newOwner){
+        String query = "INSERT INTO owners (owner_name) VALUES (?)";
+        try {
+            jdbcTemplate.update(query, newOwner.getOwnerName());
+        } catch (Exception e){
+            System.err.println(e);
+            throw e;
+        }
+    }
 }

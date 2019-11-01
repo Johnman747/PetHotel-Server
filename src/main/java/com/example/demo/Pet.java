@@ -1,17 +1,27 @@
 package com.example.demo;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Pet {
     //these are declaring the different properties that an object of type Pet can have
     //these must have a type declaration
+    @JsonProperty (value = "id")
     private int id;
+    @JsonProperty (value = "owner_id")
     private int owner_id;
+    @JsonProperty (value = "pet_name")
     private String pet_name;
+    @JsonProperty (value = "owner_name")
     private String owner_name;
+    @JsonProperty (value = "breed")
     private String breed;
+    @JsonProperty (value = "color")
     private String color;
+    @JsonProperty (value = "url")
     private String url;
+    @JsonProperty (value = "is_checked_in")
     private boolean is_checked_in;
+    @JsonProperty (value = "checked_in_date")
     private Date checked_in_date;
 
     //id getter
